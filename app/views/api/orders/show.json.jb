@@ -1,0 +1,8 @@
+{
+  quantity: @orders.quantity,
+  product_id: @orders.product_id,
+  user_id: @orders.user_id,
+  total: @orders.total,
+  subtotal: @orders.subtotal,
+  tax: @orders.tax,
+}
