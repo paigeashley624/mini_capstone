@@ -1,8 +1,10 @@
 class Api::ProductsController < ApplicationController
-  def index
-    @products = Product.all
-    render "index.json.jb"
-  end
+  before_action :authenticate_admin, except: [:index, :show]
+  before_action :authenticate_user,
+                def index
+                  @products = Product.all
+                  render "index.json.jb"
+                end
 
   def show
     product_id = params[:id]
@@ -17,6 +19,8 @@ class Api::ProductsController < ApplicationController
       image_url: params[:image_url],
       decsription: params[:description],
     )
+
+    #HAppy/Sad Path
     if @product.save
       render "show.json.jb"
     else

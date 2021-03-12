@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     delete "/products/:id", controller: "products", action: "destroy"
 
     post "/sessions", controller: "sessions", action: "create"
+
+    post "/orders", controller: "orders", action: "create"
   end
 end

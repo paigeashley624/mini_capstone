@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception, if: -> { request.format.html? }
 
+  def authenticate_admin
+    
+  end
+
   def current_user
     auth_headers = request.headers["Authorization"]
     if auth_headers.present? && auth_headers[/(?<=\A(Bearer ))\S+\z/]
@@ -23,7 +27,12 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user
     unless current_user
-      render json: {}, status: :unauthorized
+      render json: {message: "You are not logged in"}, status: :unauthorized
     end
+  end
+
+  def authenticate_admin
+    unless current_user && current_user.admin
+      render json:{message: "You are not an admin"}, status :unauthorized
   end
 end
